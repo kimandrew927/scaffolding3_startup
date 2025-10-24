@@ -162,9 +162,33 @@ class TextPreprocessor:
             - most_common_words (top 10)
         """
         # Hint: Use the existing tokenize methods and Counter
-        raise NotImplementedError(
-            "Implement this for Part 2 of the assignment")
+        if text is None:
+            text = ""
 
+        sentences = self.tokenize_sentences(text)
+        words = self.tokenize_words(text)
+
+        norm_words = [w.lower() for w in words if w]
+
+        total_characters = len(text)
+        total_words = len(norm_words)
+        total_sentences = len(sentences)
+
+        avg_word_length = (sum(len(w) for w in norm_words) / total_words) if total_words else 0.0
+        avg_sentence_length = (total_words / total_sentences) if total_sentences else 0.0
+
+        counts = Counter(norm_words)
+        most_common_words = counts.most_common(10)
+
+        return {
+            "total_characters": total_characters,
+            "total_words": total_words,
+            "total_sentences": total_sentences,
+            "avg_word_length": avg_word_length,
+            "avg_sentence_length": avg_sentence_length,
+            "most_common_words": most_common_words,
+        }
+   
     def create_summary(self, text: str, num_sentences: int = 3) -> str:
         """
         TODO: Create a simple extractive summary by returning the first N sentences
