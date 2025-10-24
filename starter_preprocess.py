@@ -174,8 +174,10 @@ class TextPreprocessor:
         total_words = len(norm_words)
         total_sentences = len(sentences)
 
-        avg_word_length = (sum(len(w) for w in norm_words) / total_words) if total_words else 0.0
-        avg_sentence_length = (total_words / total_sentences) if total_sentences else 0.0
+        avg_word_length = (sum(len(w) for w in norm_words) /
+                           total_words) if total_words else 0.0
+        avg_sentence_length = (
+            total_words / total_sentences) if total_sentences else 0.0
 
         counts = Counter(norm_words)
         most_common_words = counts.most_common(10)
@@ -188,7 +190,7 @@ class TextPreprocessor:
             "avg_sentence_length": avg_sentence_length,
             "most_common_words": most_common_words,
         }
-   
+
     def create_summary(self, text: str, num_sentences: int = 3) -> str:
         """
         TODO: Create a simple extractive summary by returning the first N sentences
@@ -201,8 +203,15 @@ class TextPreprocessor:
             Summary string
         """
         # Hint: Use tokenize_sentences() and join the first N sentences
-        raise NotImplementedError(
-            "Implement this for Part 2 of the assignment")
+        if not text:
+            return ""
+
+        sentences = self.tokenize_sentences(text)
+        if not sentences:
+            return ""
+
+        summary_sentences = sentences[:max(0, int(num_sentences))]
+        return " ".join(summary_sentences).strip()
 
 
 class FrequencyAnalyzer:
