@@ -64,9 +64,9 @@ class TextPreprocessor:
         text = text.lower()
 
         # Standardize quotes and dashes
-        text = re.sub(r'[""]', '"', text)
-        text = re.sub(r'['']', "'", text)
-        text = re.sub(r'—|–', '-', text)
+        text = re.sub(r'[“”]', '"', text)   
+        text = re.sub(r"[‘’]", "'", text)   
+        text = re.sub(r'[—–]', '-', text)  
 
         if preserve_sentences:
             # Keep sentence endings but remove other punctuation
@@ -130,17 +130,24 @@ class TextPreprocessor:
         Raises:
             Exception if URL is invalid or cannot be reached
         """
+        # Check if the url exists
         if not isinstance(url, str) or not url.strip():
             raise ValueError("Missing URL")
+        # Strip Whitespace
         url = url.strip()
-        lo = url.lower()
+        # uniform
+        low = url.lower()
 
-        if not lo.startswith(("http://", "https://")):
+        # Check formatting
+        if not low.startswith(("http://", "https://")):
             raise ValueError("URL must start with http:// or https://")
-        if not lo.endswith(".txt"):
+        # Check Mime Type
+        if not low.endswith(".txt"):
             raise ValueError("URL must point to a .txt file")
         try:
+            # Send request to url
             r = requests.get(url, timeout=10)
+            # Check status
             r.raise_for_status()
 
             r.encoding = r.encoding or r.apparent_encoding or "utf-8"
@@ -164,10 +171,10 @@ class TextPreprocessor:
         # Hint: Use the existing tokenize methods and Counter
         if text is None:
             text = ""
-
+        # Tokenize
         sentences = self.tokenize_sentences(text)
         words = self.tokenize_words(text)
-
+        # Normalize
         norm_words = [w.lower() for w in words if w]
 
         total_characters = len(text)
