@@ -176,11 +176,11 @@ class TextPreprocessor:
         words = self.tokenize_words(text)
         # Normalize
         norm_words = [w.lower() for w in words if w]
-
+        #totals
         total_characters = len(text)
         total_words = len(norm_words)
         total_sentences = len(sentences)
-
+        #Averages
         avg_word_length = (sum(len(w) for w in norm_words) /
                            total_words) if total_words else 0.0
         avg_sentence_length = (
@@ -188,7 +188,7 @@ class TextPreprocessor:
 
         counts = Counter(norm_words)
         most_common_words = counts.most_common(10)
-
+        
         return {
             "total_characters": total_characters,
             "total_words": total_words,
