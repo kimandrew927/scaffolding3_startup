@@ -200,7 +200,14 @@ Good luck! This assignment prepares you for the main Shannon Information Theory 
 
 Here are screenshots of the working application for all of the test links.
 
+PRIDE AND PREJUDICE
 ![App Screenshot](prideandprejudice.png)
+
+FRANKENSTEIN
 ![App Screenshot](frankenstein.png)
+
+ALICE IN WONDERLAND
 ![App Screenshot](aliceinwonderland.png)
+
+MOBY DICK
 ![App Screenshot](mobydick.png)
